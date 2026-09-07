@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moh Rendy Prasetyo Putro - Portfolio</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        .bg-grid-pattern {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans antialiased bg-grid-pattern selection:bg-indigo-500 selection:text-white" x-data="{ mobileMenu: false }">
+
+    <!-- Sticky Elegant Navbar -->
+    <nav class="sticky top-0 z-50 backdrop-blur-md bg-slate-900/80 border-b border-slate-800/80">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-xl font-bold tracking-wider bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">
+                Rendy<span class="text-indigo-500">.dev</span>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <div class="hidden md:flex space-x-8 text-sm font-medium text-slate-300">
+                <a href="#about" class="hover:text-cyan-400 transition">Tentang</a>
+                <a href="#skills" class="hover:text-cyan-400 transition">Keahlian</a>
+                <a href="#experience" class="hover:text-cyan-400 transition">Pengalaman</a>
+                <a href="#achievements" class="hover:text-cyan-400 transition">Prestasi</a>
+                <a href="#contact" class="hover:text-cyan-400 transition">Kontak</a>
+            </div>
+
+            <!-- CTA Button -->
+            <a href="mailto:rendyprassetyo@gmail.com" class="hidden md:inline-flex items-center justify-center px-4 py-2 text-sm font-semibold text-slate-900 bg-cyan-400 hover:bg-cyan-300 rounded-full transition shadow-lg shadow-cyan-500/20">
+                Hubungi Saya
+            </a>
+
+            <!-- Mobile Hamburger Button -->
+            <button @click="mobileMenu = !mobileMenu" class="md:hidden text-slate-300 focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path x-show="!mobileMenu" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    <path x-show="mobileMenu" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Drawer -->
+        <div x-show="mobileMenu" class="md:hidden bg-slate-900 border-b border-slate-800 px-6 py-4 space-y-3">
+            <a href="#about" @click="mobileMenu = false" class="block text-slate-300 hover:text-cyan-400">Tentang</a>
+            <a href="#skills" @click="mobileMenu = false" class="block text-slate-300 hover:text-cyan-400">Keahlian</a>
+            <a href="#experience" @click="mobileMenu = false" class="block text-slate-300 hover:text-cyan-400">Pengalaman</a>
+            <a href="#achievements" @click="mobileMenu = false" class="block text-slate-300 hover:text-cyan-400">Prestasi</a>
+            <a href="#contact" @click="mobileMenu = false" class="block text-slate-300 hover:text-cyan-400">Kontak</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="about" class="max-w-6xl mx-auto px-6 py-20 md:py-28 flex flex-col-reverse md:flex-row items-center gap-12">
+        <div class="flex-1 space-y-6 text-center md:text-left">
+            <div class="inline-block px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 text-xs font-semibold tracking-wide">
+                📍 Surabaya, Indonesia
+            </div>
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-white leading-tight">
+                Halo, Saya <br/>
+                <span class="bg-gradient-to-r from-indigo-400 via-cyan-400 to-teal-300 bg-clip-text text-transparent">
+                    Moh Rendy Prasetyo Putro
+                </span>
+            </h1>
+            <p class="text-lg text-slate-400 font-medium">
+                Software Engineer & AI Researcher
+            </p>
+            <p class="text-slate-300 leading-relaxed max-w-xl">
+                Lulusan S1 Teknologi Informasi Telkom University Surabaya (IPK 3.8/4.0) dengan spesialisasi pengembangan software, arsitektur IoT, serta pemodelan sistem prediktif Machine Learning (XGBoost, LightGBM, Optuna) dan AI Workflows (Generative AI, LLM, RAG).
+            </p>
+
+            <!-- Quick Stats -->
+            <div class="grid grid-cols-3 gap-4 pt-4">
+                <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800 text-center">
+                    <div class="text-xl md:text-2xl font-bold text-cyan-400">3.8 / 4.0</div>
+                    <div class="text-xs text-slate-400 mt-1">IPK</div>
+                </div>
+                <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800 text-center">
+                    <div class="text-xl md:text-2xl font-bold text-cyan-400">AI & SE</div>
+                    <div class="text-xs text-slate-400 mt-1">Spesialisasi</div>
+                </div>
+                <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800 text-center">
+                    <div class="text-xl md:text-2xl font-bold text-cyan-400">AWS Cert.</div>
+                    <div class="text-xs text-slate-400 mt-1">Sertifikasi</div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="pt-4 flex flex-wrap gap-4 justify-center md:justify-start">
+                <a href="#experience" class="px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-medium transition shadow-lg shadow-indigo-600/30">
+                    Lihat Pengalaman
+                </a>
+                <a href="https://github.com/renprzty" target="_blank" class="px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-medium border border-slate-700 transition">
+                    GitHub Profile ↗
+                </a>
+            </div>
+        </div>
+
+        <!-- Photo Frame -->
+        <div class="relative group">
+            <div class="absolute -inset-1 bg-gradient-to-r from-indigo-500 via-cyan-500 to-teal-500 rounded-3xl blur-xl opacity-50 group-hover:opacity-80 transition duration-500"></div>
+            <div class="relative w-64 h-64 md:w-80 md:h-80 rounded-2xl overflow-hidden border-2 border-slate-700/80 bg-slate-900 shadow-2xl">
+                <img src="./images/profile.jpg" alt="Moh Rendy Prasetyo Putro" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-16 bg-slate-900/40 border-y border-slate-800/80">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-white">Keahlian & Teknologi</h2>
+                <p class="text-slate-400 text-sm mt-2">Tools dan framework yang biasa digunakan dalam proyek dan penelitian</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800">
+                    <h3 class="text-lg font-semibold text-cyan-400 mb-4">AI & Machine Learning</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1.5 rounded-lg bg-slate-800 text-xs text-slate-300 border border-slate-700">Generative AI</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-slate-800 text-xs text-slate-300 border border-slate-700">LLM & RAG</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-slate-800 text-xs text-slate-300 border border-slate-700">XGBoost / LightGBM</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-slate-800 text-xs text-slate-300 border border-slate-700">Optuna</span>
+                    </div>
+                </div>
+                <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800">
+                    <h3 class="text-lg font-semibold text-cyan-400 mb-4">Programming & Database</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1.5 rounded-lg bg-slate-800 text-xs text-slate-300 border border-slate-700">Python</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-slate-800 text-xs text-slate-300 border border-slate-700">SQL (MySQL/SQL Server)</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-slate-800 text-xs text-slate-300 border border-slate-700">C++</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-slate-800 text-xs text-slate-300 border border-slate-700">Laravel / PHP</span>
+                    </div>
+                </div>
+                <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800">
+                    <h3 class="text-lg font-semibold text-cyan-400 mb-4">Infrastructure & Cloud</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1.5 rounded-lg bg-slate-800 text-xs text-slate-300 border border-slate-700">AWS (EC2, Lambda, ECS)</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-slate-800 text-xs text-slate-300 border border-slate-700">Docker</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-slate-800 text-xs text-slate-300 border border-slate-700">Linux</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-slate-800 text-xs text-slate-300 border border-slate-700">Git / GitHub</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-20 max-w-6xl mx-auto px-6">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl font-bold text-white">Pengalaman & Riset</h2>
+            <p class="text-slate-400 text-sm mt-2">Perjalanan akademik dan profesional</p>
+        </div>
+
+        <div class="relative border-l border-slate-800 ml-4 md:ml-32 space-y-12">
+            <div class="relative pl-8">
+                <div class="absolute -left-2.5 top-1.5 w-5 h-5 rounded-full bg-slate-900 border-2 border-indigo-500"></div>
+                <div class="flex flex-col md:flex-row md:items-center justify-between mb-2">
+                    <div>
+                        <h3 class="text-xl font-semibold text-white">Machine Learning Researcher</h3>
+                        <p class="text-sm text-indigo-400 font-medium">Telkom University Surabaya</p>
+                    </div>
+                    <span class="text-xs text-slate-400 bg-slate-900 px-3 py-1 rounded-full border border-slate-800 w-max mt-2 md:mt-0">Mei 2026</span>
+                </div>
+                <p class="text-slate-400 text-sm leading-relaxed mt-2 bg-slate-900/40 p-4 rounded-xl border border-slate-800/60">
+                    Mengembangkan Proactive Warning System untuk deteksi dini kegagalan sensor Smart Greenhouse berbasis IoT dan ML (Gradient Boosting, XGBoost, LightGBM) yang dioptimasi dengan Optuna.
+                </p>
+            </div>
+
+            <div class="relative pl-8">
+                <div class="absolute -left-2.5 top-1.5 w-5 h-5 rounded-full bg-slate-900 border-2 border-indigo-500"></div>
+                <div class="flex flex-col md:flex-row md:items-center justify-between mb-2">
+                    <div>
+                        <h3 class="text-xl font-semibold text-white">Front-End Developer Intern</h3>
+                        <p class="text-sm text-indigo-400 font-medium">PT Triple One Global</p>
+                    </div>
+                    <span class="text-xs text-slate-400 bg-slate-900 px-3 py-1 rounded-full border border-slate-800 w-max mt-2 md:mt-0">Agu 2025 - Jan 2026</span>
+                </div>
+                <p class="text-slate-400 text-sm leading-relaxed mt-2 bg-slate-900/40 p-4 rounded-xl border border-slate-800/60">
+                    Melakukan troubleshooting teknis, pengelolaan repositori Git, dokumentasi sistem, dan konfigurasi lingkungan pengujian software.
+                </p>
+            </div>
+
+            <div class="relative pl-8">
+                <div class="absolute -left-2.5 top-1.5 w-5 h-5 rounded-full bg-slate-900 border-2 border-indigo-500"></div>
+                <div class="flex flex-col md:flex-row md:items-center justify-between mb-2">
+                    <div>
+                        <h3 class="text-xl font-semibold text-white">Practice Assistant - Data Structures Lab</h3>
+                        <p class="text-sm text-indigo-400 font-medium">Telkom University Surabaya</p>
+                    </div>
+                    <span class="text-xs text-slate-400 bg-slate-900 px-3 py-1 rounded-full border border-slate-800 w-max mt-2 md:mt-0">Okt 2024 - Jan 2025</span>
+                </div>
+                <p class="text-slate-400 text-sm leading-relaxed mt-2 bg-slate-900/40 p-4 rounded-xl border border-slate-800/60">
+                    Membimbing mahasiswa dalam memahami logika pemrograman, struktur data dasar, serta troubleshooting lingkungan pengembangan.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="py-16 border-t border-slate-800/80 bg-slate-950 text-center space-y-6">
+        <h2 class="text-2xl font-bold text-white">Hubungi Saya</h2>
+        <div class="flex justify-center gap-6 text-slate-400 text-sm font-medium">
+            <a href="mailto:rendyprassetyo@gmail.com" class="hover:text-cyan-400 transition">Email</a>
+            <a href="https://wa.me/6281332049181" target="_blank" class="hover:text-cyan-400 transition">WhatsApp</a>
+            <a href="https://github.com/renprzty" target="_blank" class="hover:text-cyan-400 transition">GitHub</a>
+        </div>
+        <p class="text-xs text-slate-600 pt-8">&copy; 2026 Moh Rendy Prasetyo Putro. Hosted on GitHub Pages.</p>
+    </footer>
+
+</body>
+</html>
