@@ -66,6 +66,7 @@
                 <a href="#about" class="hover:text-cyan-400 transition">About</a>
                 <a href="#skills" class="hover:text-cyan-400 transition">Skills</a>
                 <a href="#projects" class="hover:text-cyan-400 transition">Projects</a>
+                <a href="#college-projects" class="hover:text-cyan-400 transition">College Projects</a>
                 <a href="#certifications" class="hover:text-cyan-400 transition">Certifications</a>
                 <a href="#contact" class="hover:text-cyan-400 transition">Contact</a>
             </div>
@@ -95,6 +96,7 @@
             <a href="#about" @click="mobileMenu = false" class="block text-slate-300 hover:text-cyan-400 transition">About</a>
             <a href="#skills" @click="mobileMenu = false" class="block text-slate-300 hover:text-cyan-400 transition">Skills</a>
             <a href="#projects" @click="mobileMenu = false" class="block text-slate-300 hover:text-cyan-400 transition">Projects</a>
+            <a href="#college-projects" @click="mobileMenu = false" class="block text-slate-300 hover:text-cyan-400 transition">College Projects</a>
             <a href="#certifications" @click="mobileMenu = false" class="block text-slate-300 hover:text-cyan-400 transition">Certifications</a>
             <a href="#contact" @click="mobileMenu = false" class="block text-slate-300 hover:text-cyan-400 transition">Contact</a>
             <div class="pt-2 flex flex-col gap-2">
@@ -488,7 +490,212 @@
         </div>
     </section>
 
-    <!-- SECTION 2: CERTIFICATIONS SHOWCASE GALLERY (SEPARATE) -->
+    <!-- SECTION 2: COLLEGE PROJECTS SHOWCASE GALLERY (SEMESTER JOURNEY) -->
+    <section id="college-projects" class="py-24 max-w-7xl mx-auto px-6 border-t border-slate-850">
+        <div class="text-center mb-16">
+            <div class="inline-block px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-3">
+                Academic Showcase • Semester Journey
+            </div>
+            <h2 class="text-3xl md:text-5xl font-extrabold text-white tracking-tight">College Projects</h2>
+            <p class="text-slate-400 text-sm md:text-base mt-3 max-w-2xl mx-auto">
+                Koleksi proyek perkuliahan yang saya kembangkan di setiap semesternya, mendemonstrasikan implementasi komprehensif mulai dari algoritma pemrograman, struktur data, manipulasi memori, hingga pemecahan masalah komputasi nyata.
+            </p>
+        </div>
+
+        <!-- College Projects Grid -->
+        <div class="grid md:grid-cols-2 gap-8">
+            <!-- 1. SEMESTER 1 PROJECT: Sistem Data Mahasiswa (Bahasa C - Nilai A) -->
+            <div @click="openDetail({
+                    type: 'College Project',
+                    featured: true,
+                    title: 'Sistem Data Mahasiswa',
+                    badge: 'Semester 1 • Nilai A (Algoritma Pemrograman)',
+                    subtitle: 'Mata Kuliah: Algoritma Pemrograman (Bahasa C) • Nilai A',
+                    period: 'Semester 1',
+                    link: '',
+                    linkText: '',
+                    mediaType: 'video',
+                    videoSrc: '',
+                    videoEmbed: '',
+                    placeholderLabel: 'Demo Video Aplikasi CLI Sistem Data Mahasiswa',
+                    mediaNote: 'Video demonstrasi eksekusi terminal: alur input, CRUD data mahasiswa, Bubble Sort multi-kriteria, Linear Search, statistik, dan persistensi file handling.',
+                    description: 'Aplikasi konsol Sistem Data Mahasiswa berbasis Bahasa C yang mengimplementasikan seluruh kurikulum materi mata kuliah Algoritma Pemrograman selama 1 semester secara komprehensif. Proyek ini membuktikan penguasaan fundamental pemrograman mulai dari variabel dasar, pointer, manipulasi array of struct, algoritma sorting dan searching, hingga manajemen file handling persisten.',
+                    details: [
+                        'Mata Kuliah Algoritma Pemrograman diselesaikan dengan perolehan Nilai A (Kategori Unggul / High Distinction).',
+                        'Mengimplementasikan arsitektur kode modular dengan memecah alur program menjadi banyak function spesifik serta pemanfaatan pointer (&jumlah, *jumlah) untuk passing parameter secara efisien.',
+                        'Fitur CRUD Lengkap: Penambahan data mahasiswa (Create), penampilan daftar tabel rapi (Read), perbaikan biodata/IPK (Update), dan penghapusan data dengan re-indexing (Delete).',
+                        'Pencarian & Pengurutan: Linear Search berbasis NIM unik (cariIndexNIM) dan algoritma Bubble Sort multi-kriteria (pengurutan fleksibel berdasarkan Nama, NIM, atau IPK).',
+                        'File Handling Persistence: Penyimpanan dan pembacaan database mahasiswa ke berkas lokal secara otomatis menggunakan fopen, fclose, fprintf, dan fscanf.',
+                        'Validasi Input & Sanitasi Memori: Pembersihan buffer input (bersihkanInput dengan while), validasi rentang semester & IPK (0.00 - 4.00), pencegahan duplikasi NIM, serta penanganan string yang aman (fgets & strcspn).'
+                    ],
+                    curriculumTable: [
+                        { topic: 'Variabel & tipe data', impl: 'int, float, char' },
+                        { topic: 'Konstanta', impl: '#define MAX_MAHASISWA' },
+                        { topic: 'Operator', impl: '+, -, /, ++, >=, &&, dll.' },
+                        { topic: 'Input/output', impl: 'printf, scanf, fgets' },
+                        { topic: 'if / else', impl: 'Validasi dan statistik' },
+                        { topic: 'switch-case', impl: 'Menu utama & sorting' },
+                        { topic: 'for', impl: 'Traversal, sorting, hapus data' },
+                        { topic: 'while', impl: 'bersihkanInput()' },
+                        { topic: 'do-while', impl: 'Menu utama & validasi' },
+                        { topic: 'Array', impl: 'Mahasiswa data[100]' },
+                        { topic: 'Array 2D', impl: 'Tidak diperlukan secara natural dalam kasus ini' },
+                        { topic: 'String', impl: 'strlen, strcmp, strcpy, strcspn' },
+                        { topic: 'Function', impl: 'Program dipecah menjadi banyak function' },
+                        { topic: 'Pointer', impl: 'int *jumlah, &jumlah' },
+                        { topic: 'Struct', impl: 'typedef struct Mahasiswa' },
+                        { topic: 'Linear Search', impl: 'cariIndexNIM()' },
+                        { topic: 'Bubble Sort', impl: 'Nama, NIM, dan IPK' },
+                        { topic: 'File Handling', impl: 'fopen, fclose, fprintf, fscanf' },
+                        { topic: 'Validasi', impl: 'NIM, IPK, semester, input menu' },
+                        { topic: 'CRUD', impl: 'Create, Read, Update, Delete' },
+                        { topic: 'Statistik', impl: 'average, min, max, persentase' }
+                    ],
+                    skills: ['Bahasa C', 'Algorithms', 'Data Structures', 'Pointer & Memory', 'File Handling', 'Bubble Sort', 'Linear Search', 'CRUD System']
+                })"
+                class="group relative rounded-3xl bg-slate-900/90 border-2 border-emerald-500/40 hover:border-emerald-400 transition-all duration-300 hover:shadow-2xl hover:shadow-emerald-500/15 cursor-pointer overflow-hidden flex flex-col justify-between">
+                
+                <!-- Glow highlight -->
+                <div class="absolute -top-12 -right-12 w-48 h-48 bg-emerald-500/20 rounded-full blur-2xl group-hover:bg-emerald-500/30 transition duration-500"></div>
+
+                <div>
+                    <!-- Media Showcase Area (Terminal & Video Demo Preview) -->
+                    <div class="relative w-full h-56 sm:h-64 bg-slate-950 border-b border-slate-800 overflow-hidden flex flex-col justify-between group-hover:bg-slate-950/90 transition">
+                        <!-- Terminal Bar -->
+                        <div class="relative z-20 px-4 py-2 bg-slate-900/90 border-b border-slate-800/80 flex items-center justify-between">
+                            <div class="flex items-center gap-1.5">
+                                <span class="w-2.5 h-2.5 rounded-full bg-rose-500/80 inline-block"></span>
+                                <span class="w-2.5 h-2.5 rounded-full bg-amber-500/80 inline-block"></span>
+                                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500/80 inline-block"></span>
+                                <span class="text-[11px] font-mono text-slate-400 ml-2">sistem_data_mahasiswa.c</span>
+                            </div>
+                            <span class="text-[11px] font-semibold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/30">
+                                Grade A (4.0)
+                            </span>
+                        </div>
+
+                        <!-- Code / CLI Simulation Background -->
+                        <div class="absolute inset-0 pt-9 px-5 font-mono text-[10px] text-slate-500 select-none overflow-hidden opacity-25 leading-relaxed">
+                            <p class="text-emerald-400/70">#include &lt;stdio.h&gt;</p>
+                            <p class="text-cyan-400/70">typedef struct { char nim[15]; char nama[50]; float ipk; int semester; } Mahasiswa;</p>
+                            <p class="text-slate-400/60">void bubbleSort(Mahasiswa data[], int jumlah, int kriteria);</p>
+                            <p class="text-slate-400/60">int cariIndexNIM(Mahasiswa data[], int jumlah, char nim[]);</p>
+                            <p class="text-indigo-400/60">FILE *fp = fopen("mahasiswa.dat", "r");</p>
+                        </div>
+
+                        <!-- Media Indicator Overlay -->
+                        <div class="relative z-10 flex flex-col items-center justify-center p-6 space-y-2.5 my-auto">
+                            <div class="w-14 h-14 rounded-2xl bg-emerald-500/20 border border-emerald-500/50 flex items-center justify-center text-emerald-300 group-hover:scale-110 group-hover:bg-emerald-400 group-hover:text-slate-950 transition duration-300 shadow-xl shadow-emerald-500/20">
+                                <svg class="w-7 h-7 fill-current ml-0.5" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                            </div>
+                            <span class="text-xs font-semibold tracking-wide text-emerald-300 bg-slate-900/90 px-3 py-1 rounded-full border border-emerald-500/30">
+                                📹 Video Demo Aplikasi CLI
+                            </span>
+                            <span class="text-xs text-slate-400 text-center">Klik untuk memutar video demo &amp; tabel materi 1 semester</span>
+                        </div>
+
+                        <!-- Semester Badge -->
+                        <div class="absolute bottom-3 left-4 z-20">
+                            <span class="px-3 py-1 rounded-full bg-emerald-400 text-slate-950 text-xs font-extrabold uppercase tracking-wider shadow-md">
+                                ★ Semester 1 Project
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Card Body -->
+                    <div class="p-6 sm:p-8 space-y-4">
+                        <div>
+                            <div class="flex items-center gap-2 flex-wrap text-xs">
+                                <span class="font-bold text-emerald-400">Algoritma Pemrograman</span>
+                                <span class="text-slate-600">•</span>
+                                <span class="font-semibold text-amber-300">Nilai A (Kategori Unggul)</span>
+                                <span class="text-slate-600">•</span>
+                                <span class="text-slate-400 font-mono">Bahasa C</span>
+                            </div>
+                            <h3 class="text-2xl sm:text-3xl font-extrabold text-white group-hover:text-emerald-300 transition mt-1">
+                                Sistem Data Mahasiswa
+                            </h3>
+                        </div>
+
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            Aplikasi konsol manajemen data mahasiswa yang mengimplementasikan seluruh kurikulum perkuliahan 1 semester secara utuh: operasi CRUD, Linear Search, Bubble Sort multi-kriteria, struct &amp; pointer memori, validasi input, dan file handling.
+                        </p>
+
+                        <!-- Highlights Grid -->
+                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 pt-1 text-[11px]">
+                            <div class="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-slate-300">
+                                <span class="text-emerald-400 font-bold block">✓ CRUD Lengkap</span>
+                                <span class="text-slate-400 text-[10px]">Create, Read, Update, Delete</span>
+                            </div>
+                            <div class="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-slate-300">
+                                <span class="text-cyan-400 font-bold block">✓ Sort &amp; Search</span>
+                                <span class="text-slate-400 text-[10px]">Bubble Sort &amp; Linear Search</span>
+                            </div>
+                            <div class="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-slate-300 col-span-2 sm:col-span-1">
+                                <span class="text-indigo-400 font-bold block">✓ File Handling</span>
+                                <span class="text-slate-400 text-[10px]">Persistensi fopen/fclose</span>
+                            </div>
+                        </div>
+
+                        <!-- Skills Used / Learned Section -->
+                        <div class="space-y-2 pt-2">
+                            <div class="text-xs font-bold uppercase tracking-wider text-slate-400">
+                                Materi Utama yang Diimplementasikan:
+                            </div>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-2.5 py-1 rounded-md bg-emerald-950/60 text-emerald-300 border border-emerald-500/40 text-xs font-semibold">Bahasa C</span>
+                                <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-200 border border-slate-700 text-xs font-medium">Struct</span>
+                                <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-200 border border-slate-700 text-xs font-medium">Pointer</span>
+                                <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-200 border border-slate-700 text-xs font-medium">Bubble Sort</span>
+                                <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-200 border border-slate-700 text-xs font-medium">Linear Search</span>
+                                <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-200 border border-slate-700 text-xs font-medium">File Handling</span>
+                                <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-200 border border-slate-700 text-xs font-medium">Validasi &amp; Statistik</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card Footer Action -->
+                <div class="px-6 sm:px-8 py-4 bg-slate-950/70 border-t border-slate-800/80 flex items-center justify-between">
+                    <span class="text-xs text-slate-400 group-hover:text-emerald-400 transition flex items-center gap-1 font-semibold">
+                        <span>Buka detail lengkap, materi &amp; video demo</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </span>
+                    <span class="text-xs font-bold text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-md border border-emerald-500/20">
+                        📹 Video Demo
+                    </span>
+                </div>
+            </div>
+
+            <!-- 2. UPCOMING SEMESTERS PLACEHOLDER CARD -->
+            <div class="rounded-3xl bg-slate-900/40 border border-dashed border-slate-800 p-8 flex flex-col justify-between text-center relative overflow-hidden group hover:border-slate-700 transition">
+                <div class="space-y-6 my-auto py-12">
+                    <div class="w-16 h-16 mx-auto rounded-2xl bg-slate-800/80 border border-slate-700/80 flex items-center justify-center text-slate-400 group-hover:text-emerald-400 group-hover:border-emerald-500/40 transition">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                    </div>
+                    
+                    <div class="space-y-2 max-w-sm mx-auto">
+                        <span class="text-xs font-semibold uppercase tracking-wider text-slate-500">Upcoming Semesters</span>
+                        <h3 class="text-xl font-bold text-white">Semester 2 &amp; Beyond</h3>
+                        <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">
+                            Proyek-proyek perkuliahan untuk semester lanjutan (Struktur Data, Basis Data, Rekayasa Perangkat Lunak, dll.) akan ditambahkan secara bertahap pada galeri ini.
+                        </p>
+                    </div>
+
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-800/80 border border-slate-700 text-xs text-slate-400 font-medium">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                        <span>Showcase Akan Diperbarui Bertahap</span>
+                    </div>
+                </div>
+
+                <div class="pt-4 border-t border-slate-850 text-xs text-slate-500">
+                    Mata kuliah selanjutnya siap ditambahkan ke galeri
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: CERTIFICATIONS SHOWCASE GALLERY (SEPARATE) -->
     <section id="certifications" class="py-24 bg-slate-900/30 border-t border-slate-850">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-16">
@@ -772,22 +979,52 @@
                 <div class="absolute inset-0 bg-gradient-to-tr from-cyan-950/40 via-slate-900 to-indigo-950/40"></div>
                 <div class="absolute inset-0 bg-grid-pattern opacity-50"></div>
 
-                <div class="relative z-10 text-center p-6 space-y-3">
-                    <template x-if="activeItem?.mediaType === 'video'">
-                        <div class="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-cyan-500/20 border border-cyan-500/50 text-cyan-300 shadow-2xl shadow-cyan-500/20">
-                            <svg class="w-10 h-10 fill-current ml-1" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                        </div>
-                    </template>
-                    <template x-if="activeItem?.mediaType !== 'video'">
-                        <div class="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-indigo-500/20 border border-indigo-500/50 text-indigo-300 shadow-2xl shadow-indigo-500/20">
-                            <svg class="w-10 h-10 fill-none stroke-currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                        </div>
-                    </template>
-                    <div class="text-sm font-bold text-white tracking-wide" x-text="activeItem?.placeholderLabel"></div>
-                    <p class="text-xs text-slate-400 max-w-sm mx-auto">
-                        Interactive media placeholder (Mockup screenshot / Video walkthrough ready)
-                    </p>
-                </div>
+                <!-- HTML5 Native Video Player (if videoSrc is present) -->
+                <template x-if="activeItem?.videoSrc">
+                    <video controls autoplay class="relative z-10 w-full h-full object-contain bg-black" :src="activeItem.videoSrc"></video>
+                </template>
+
+                <!-- Embedded Video Iframe (if videoEmbed is present and no videoSrc) -->
+                <template x-if="activeItem?.videoEmbed && !activeItem?.videoSrc">
+                    <iframe class="relative z-10 w-full h-full border-0" :src="activeItem.videoEmbed" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </template>
+
+                <!-- Fallback / Interactive Media Placeholder -->
+                <template x-if="!activeItem?.videoSrc && !activeItem?.videoEmbed">
+                    <div class="relative z-10 text-center p-6 space-y-3 max-w-md mx-auto">
+                        <template x-if="activeItem?.mediaType === 'video'">
+                            <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-emerald-500/20 border border-emerald-500/50 text-emerald-300 shadow-2xl shadow-emerald-500/20">
+                                <svg class="w-8 h-8 fill-current ml-0.5" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                            </div>
+                        </template>
+                        <template x-if="activeItem?.mediaType !== 'video'">
+                            <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-indigo-500/20 border border-indigo-500/50 text-indigo-300 shadow-2xl shadow-indigo-500/20">
+                                <svg class="w-8 h-8 fill-none stroke-currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            </div>
+                        </template>
+                        <div class="text-sm font-bold text-white tracking-wide" x-text="activeItem?.placeholderLabel"></div>
+                        <p class="text-xs text-slate-400" x-text="activeItem?.mediaNote || 'Interactive media placeholder (Mockup screenshot / Video walkthrough ready)'"></p>
+                        
+                        <!-- File Upload / Local Video Picker if mediaType is video -->
+                        <template x-if="activeItem?.mediaType === 'video'">
+                            <div class="pt-1 flex items-center justify-center">
+                                <label class="cursor-pointer text-xs font-semibold text-emerald-300 bg-emerald-950/80 hover:bg-emerald-900 border border-emerald-500/40 px-3.5 py-1.5 rounded-full transition inline-flex items-center gap-2 shadow-lg shadow-emerald-950/40">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    <span>Pilih File Video Demo (.mp4 / .webm)</span>
+                                    <input type="file" accept="video/*" class="hidden" @change="if ($event.target.files.length) { activeItem.videoSrc = URL.createObjectURL($event.target.files[0]); }">
+                                </label>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+
+                <!-- Reset Video Button if custom video loaded -->
+                <template x-if="activeItem?.videoSrc">
+                    <button @click="activeItem.videoSrc = ''" class="absolute top-4 left-4 z-20 px-3 py-1 rounded-full bg-slate-900/90 text-slate-300 hover:text-white border border-slate-700 text-xs flex items-center gap-1.5 shadow-md">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                        <span>Ganti / Tutup Video</span>
+                    </button>
+                </template>
             </div>
 
             <!-- Modal Content Body -->
@@ -795,7 +1032,7 @@
                 <div>
                     <div class="flex items-center gap-2 flex-wrap mb-1">
                         <span class="text-xs px-3 py-1 rounded-full font-bold uppercase tracking-wider"
-                              :class="activeItem?.featured ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40' : 'bg-slate-800 text-indigo-300 border border-slate-700'"
+                              :class="activeItem?.type === 'College Project' ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40' : (activeItem?.featured ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40' : 'bg-slate-800 text-indigo-300 border border-slate-700')"
                               x-text="activeItem?.badge"></span>
                         <span class="text-xs text-slate-400" x-text="activeItem?.period"></span>
                     </div>
@@ -821,6 +1058,41 @@
                         </template>
                     </ul>
                 </div>
+
+                <!-- Curriculum / Coursework Implementation Table -->
+                <template x-if="activeItem?.curriculumTable && activeItem?.curriculumTable.length > 0">
+                    <div class="space-y-3 pt-3 border-t border-slate-800">
+                        <div class="flex items-center justify-between">
+                            <h4 class="text-xs font-bold uppercase tracking-wider text-emerald-400 flex items-center gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+                                <span>Materi Kuliah &amp; Implementasi (1 Semester Penuh):</span>
+                            </h4>
+                            <span class="text-[11px] text-slate-400 bg-slate-800 px-2.5 py-0.5 rounded-full border border-slate-700 font-medium" x-text="activeItem.curriculumTable.length + ' Topik Materi'"></span>
+                        </div>
+                        <div class="border border-slate-800 rounded-2xl overflow-hidden bg-slate-950/70">
+                            <div class="overflow-x-auto max-h-80 overflow-y-auto">
+                                <table class="w-full text-left text-xs border-collapse">
+                                    <thead class="bg-slate-900 sticky top-0 text-slate-300 font-bold uppercase tracking-wider text-[11px] border-b border-slate-800">
+                                        <tr>
+                                            <th class="py-2.5 px-4 w-5/12">Materi</th>
+                                            <th class="py-2.5 px-4 w-7/12">Implementasi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-slate-850 text-slate-300">
+                                        <template x-for="(row, idx) in activeItem.curriculumTable" :key="idx">
+                                            <tr class="hover:bg-slate-900/50 transition">
+                                                <td class="py-2.5 px-4 font-semibold text-slate-200" x-text="row.topic"></td>
+                                                <td class="py-2.5 px-4">
+                                                    <code class="text-emerald-300 bg-slate-900 px-2 py-1 rounded text-[11px] border border-slate-800 inline-block font-mono" x-text="row.impl"></code>
+                                                </td>
+                                            </tr>
+                                        </template>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </template>
 
                 <!-- Skills Used / Learned -->
                 <div class="space-y-2 pt-2 border-t border-slate-800">
@@ -943,6 +1215,7 @@
                     <ul class="text-xs sm:text-sm space-y-1 text-slate-300">
                         <li><strong>bosgabut.com</strong> — PT Triple One Global Intern Product (Laravel, Livewire, PHP, JavaScript, HTML, CSS)</li>
                         <li><strong>Personal Web Portfolio (2026)</strong> — renprzty.github.io/portfolioLatest</li>
+                        <li><strong>Sistem Data Mahasiswa (Bahasa C)</strong> — Academic Project Semester 1, Nilai A (CRUD, Linear Search, Bubble Sort, File Handling)</li>
                         <li><strong>AWS Training</strong> — Getting Started with Compute (2025)</li>
                         <li><strong>Cisco Networking Academy</strong> — IT Customer Support Basics (2026)</li>
                         <li><strong>Cisco Networking Academy</strong> – Operating Systems Support (2026)</li>
