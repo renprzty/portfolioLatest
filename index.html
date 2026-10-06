@@ -375,10 +375,10 @@
             <div class="text-center mb-14 reveal">
                 <p class="text-sm font-semibold mb-2" style="color:#30d158">Academic Showcase · Semester Journey</p>
                 <h2 class="text-4xl md:text-5xl font-bold tracking-tight">College Projects</h2>
-                <p class="text-muted mt-3 max-w-2xl mx-auto">Koleksi proyek perkuliahan yang saya kembangkan di setiap semesternya, mendemonstrasikan implementasi komprehensif mulai dari algoritma pemrograman, struktur data, manipulasi memori, hingga pemecahan masalah komputasi nyata.</p>
+                <p class="text-muted mt-3 max-w-2xl mx-auto">Academic projects demonstrating programming algorithms, data structures, memory management, and practical computational problem solving.</p>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-6">
+            <div class="grid grid-cols-1 gap-6">
                 <template x-for="p in college" :key="p.title">
                     <article @click="openDetail(p)" @mousemove="spot($event)" class="glass glass-hover spot reveal rounded-[32px] overflow-hidden cursor-pointer flex flex-col">
                         <!-- terminal-style media -->
@@ -407,7 +407,7 @@
                         </div>
 
                         <div class="px-6 sm:px-7 pb-6 pt-3 flex-1 flex flex-col">
-                            <p class="text-xs font-semibold flex flex-wrap gap-x-2"><span style="color:#30d158">Algoritma Pemrograman</span><span class="text-muted">·</span><span class="text-amber-500">Nilai A</span><span class="text-muted">·</span><span class="text-muted font-mono">Bahasa C</span></p>
+                            <p class="text-xs font-semibold flex flex-wrap gap-x-2"><span style="color:#30d158">Programming Algorithms</span><span class="text-muted">·</span><span class="text-amber-500">Grade A</span><span class="text-muted">·</span><span class="text-muted font-mono">C Language</span></p>
                             <h3 class="text-2xl font-bold tracking-tight mt-1" x-text="p.title"></h3>
                             <p class="text-sm text-muted leading-relaxed mt-3" x-text="p.short"></p>
                             <div class="grid grid-cols-3 gap-2 mt-4 text-[11px]">
@@ -416,27 +416,19 @@
                                 <div class="glass rounded-2xl p-2.5"><b class="block text-purple-500">File I/O</b><span class="text-muted">fopen / fclose</span></div>
                             </div>
                             <div class="mt-5">
-                                <p class="text-[11px] font-semibold uppercase tracking-wider text-muted mb-2">Materi Utama yang Diimplementasikan</p>
+                                <p class="text-[11px] font-semibold uppercase tracking-wider text-muted mb-2">Core Concepts Applied</p>
                                 <div class="flex flex-wrap gap-2">
                                     <template x-for="sk in p.cardSkills" :key="sk"><span class="chip" x-text="sk"></span></template>
                                 </div>
                             </div>
                             <div class="mt-auto pt-6 flex items-center justify-between text-sm">
-                                <span class="text-muted inline-flex items-center gap-1">Detail, materi &amp; video demo <i data-lucide="arrow-up-right" class="w-4 h-4"></i></span>
+                                <span class="text-muted inline-flex items-center gap-1">Details, coursework &amp; video demo <i data-lucide="arrow-up-right" class="w-4 h-4"></i></span>
                                 <span class="chip" style="color:#30d158">Video Demo</span>
                             </div>
                         </div>
                     </article>
                 </template>
 
-                <!-- upcoming placeholder -->
-                <div class="glass reveal rounded-[32px] p-8 flex flex-col items-center justify-center text-center border-dashed min-h-[420px]">
-                    <div class="glass w-16 h-16 rounded-3xl flex items-center justify-center mb-5"><i data-lucide="book-open" class="w-7 h-7 text-muted"></i></div>
-                    <p class="text-xs font-semibold uppercase tracking-wider text-muted">Upcoming Semesters</p>
-                    <h3 class="text-xl font-bold mt-1">Semester 2 &amp; Beyond</h3>
-                    <p class="text-sm text-muted max-w-sm mt-3">Proyek-proyek perkuliahan untuk semester lanjutan (Struktur Data, Basis Data, Rekayasa Perangkat Lunak, dll.) akan ditambahkan secara bertahap pada galeri ini.</p>
-                    <span class="chip mt-5"><span class="w-2 h-2 rounded-full bg-green-500 mr-2 animate-pulse"></span>Showcase Akan Diperbarui Bertahap</span>
-                </div>
             </div>
         </div>
     </section>
@@ -545,7 +537,7 @@
                         <p class="text-xs text-white/80" x-text="activeItem?.mediaNote || 'Media placeholder (screenshot / video walkthrough ready)'"></p>
                         <template x-if="activeItem?.mediaType === 'video'">
                             <label class="cursor-pointer inline-flex items-center gap-2 text-xs font-semibold bg-white/25 hover:bg-white/35 border border-white/40 px-4 py-2 rounded-full transition">
-                                Pilih File Video Demo (.mp4 / .webm)
+                                Choose Demo Video (.mp4 / .webm)
                                 <input type="file" accept="video/*" class="hidden" @change="if ($event.target.files.length) activeItem.videoSrc = URL.createObjectURL($event.target.files[0])">
                             </label>
                         </template>
@@ -580,14 +572,14 @@
                 <template x-if="activeItem?.curriculumTable">
                     <div>
                         <div class="flex items-center justify-between mb-2">
-                            <h4 class="text-[11px] font-semibold uppercase tracking-wider" style="color:#30d158">Materi Kuliah &amp; Implementasi (1 Semester Penuh)</h4>
-                            <span class="chip !text-[11px]" x-text="activeItem.curriculumTable.length + ' Topik'"></span>
+                            <h4 class="text-[11px] font-semibold uppercase tracking-wider" style="color:#30d158">Coursework &amp; Implementation (Full Semester)</h4>
+                            <span class="chip !text-[11px]" x-text="activeItem.curriculumTable.length + ' Topics'"></span>
                         </div>
                         <div class="glass rounded-3xl overflow-hidden">
                             <div class="max-h-80 overflow-y-auto">
                                 <table class="w-full text-left text-xs">
                                     <thead class="sticky top-0 glass-strong backdrop-blur-xl" style="background: var(--glass-strong)">
-                                        <tr class="text-muted uppercase tracking-wider text-[11px]"><th class="py-3 px-4 w-5/12">Materi</th><th class="py-3 px-4">Implementasi</th></tr>
+                                        <tr class="text-muted uppercase tracking-wider text-[11px]"><th class="py-3 px-4 w-5/12">Topic</th><th class="py-3 px-4">Implementation</th></tr>
                                     </thead>
                                     <tbody>
                                         <template x-for="(r, i) in activeItem.curriculumTable" :key="i">
@@ -645,7 +637,7 @@
                 <div class="text-center space-y-2 pb-6 border-b" style="border-color: var(--glass-edge)">
                     <h1 class="text-3xl font-bold tracking-tight">MOH RENDY PRASETYO PUTRO</h1>
                     <p class="text-xs font-semibold accent uppercase tracking-wider">Full-Stack Web Developer | JavaScript, PHP &amp; MySQL</p>
-                    <p class="text-xs text-muted">Surabaya, Jawa Timur, Indonesia · +62 813 3204 9181 · rendyprassetyo@gmail.com</p>
+                    <p class="text-xs text-muted">Surabaya, East Java, Indonesia · +62 813 3204 9181 · rendyprassetyo@gmail.com</p>
                     <p class="text-xs text-muted">
                         <a href="https://renprzty.github.io/portfolioLatest" target="_blank" class="hover:underline">renprzty.github.io/portfolioLatest</a> ·
                         <a href="https://linkedin.com/in/moh-rendy-prasetyo-putro-88990a1a5/" target="_blank" class="hover:underline">LinkedIn Profile</a>
@@ -654,7 +646,7 @@
 
                 <div class="space-y-2">
                     <h2 class="text-[11px] font-bold uppercase tracking-widest accent">Professional Summary</h2>
-                    <p class="leading-relaxed">Information Technology graduate (S.Kom., GPA 3.78/4.0) with a six-month full-stack web development internship focused mainly on front-end development. Hands-on experience integrating REST APIs, optimizing MySQL queries, implementing validation logic, and improving web application performance. Skilled in JavaScript, PHP/Laravel, Node.js, Vue.js, Laravel, Livewire, and HTML/CSS. Seeking a Junior Full-Stack/Front-end Web Developer role to contribute to admin and user portals, backend APIs, and database-driven web applications.</p>
+                    <p class="leading-relaxed">Information Technology graduate (S.Kom., GPA 3.78/4.0) with a six-month full-stack web development internship focused mainly on front-end development. Hands-on experience integrating REST APIs, optimizing MySQL queries, implementing validation logic, and improving web application performance. Skilled in JavaScript, PHP, Laravel, Node.js, Vue.js, Livewire, and HTML/CSS. Seeking a Junior Full-Stack/Front-end Web Developer role to contribute to admin and user portals, backend APIs, and database-driven web applications.</p>
                 </div>
 
                 <div class="space-y-2">
@@ -755,50 +747,50 @@
 
                 college: [
                     {
-                        type: 'College Project', featured: true, title: 'Sistem Data Mahasiswa',
+                        type: 'College Project', featured: true, title: 'Student Data Management System',
                         file: 'sistem_data_mahasiswa.c',
-                        badge: 'Semester 1 • Nilai A (Algoritma Pemrograman)',
-                        subtitle: 'Mata Kuliah: Algoritma Pemrograman (Bahasa C) • Nilai A',
+                        badge: 'Semester 1 • Grade A (Programming Algorithms)',
+                        subtitle: 'Course: Programming Algorithms (C Language) • Grade A',
                         period: 'Semester 1', link: '', linkText: '',
                         mediaType: 'video', videoSrc: './images/demo_sistem_data_mahasiswa.mp4', videoEmbed: '',
                         c1: '#1c1c1e', c2: '#30d158',
-                        placeholderLabel: 'Demo Video Aplikasi CLI Sistem Data Mahasiswa',
-                        mediaNote: 'Video demonstrasi eksekusi terminal: alur input, CRUD data mahasiswa, Bubble Sort multi-kriteria, Linear Search, statistik, dan persistensi file handling.',
-                        short: 'Aplikasi konsol manajemen data mahasiswa yang mengimplementasikan seluruh kurikulum perkuliahan 1 semester secara utuh: operasi CRUD, Linear Search, Bubble Sort multi-kriteria, struct & pointer memori, validasi input, dan file handling.',
-                        description: 'Aplikasi konsol Sistem Data Mahasiswa berbasis Bahasa C yang mengimplementasikan seluruh kurikulum materi mata kuliah Algoritma Pemrograman selama 1 semester secara komprehensif. Proyek ini membuktikan penguasaan fundamental pemrograman mulai dari variabel dasar, pointer, manipulasi array of struct, algoritma sorting dan searching, hingga manajemen file handling persisten.',
+                        placeholderLabel: 'Student Data Management CLI Demo',
+                        mediaNote: 'Terminal demonstration of input workflows, student CRUD operations, multi-criteria Bubble Sort, Linear Search, statistics, and file persistence.',
+                        short: 'A student data management console application covering a full semester of coursework: CRUD operations, Linear Search, multi-criteria Bubble Sort, structs, pointers, input validation, and file handling.',
+                        description: 'A C console application covering a full semester of Programming Algorithms coursework. The project demonstrates programming fundamentals, including variables, pointers, arrays of structs, sorting and searching algorithms, and persistent file storage.',
                         details: [
-                            'Mata Kuliah Algoritma Pemrograman diselesaikan dengan perolehan Nilai A (Kategori Unggul / High Distinction).',
-                            'Mengimplementasikan arsitektur kode modular dengan memecah alur program menjadi banyak function spesifik serta pemanfaatan pointer (&jumlah, *jumlah) untuk passing parameter secara efisien.',
-                            'Fitur CRUD Lengkap: Penambahan data mahasiswa (Create), penampilan daftar tabel rapi (Read), perbaikan biodata/IPK (Update), dan penghapusan data dengan re-indexing (Delete).',
-                            'Pencarian & Pengurutan: Linear Search berbasis NIM unik (cariIndexNIM) dan algoritma Bubble Sort multi-kriteria (pengurutan fleksibel berdasarkan Nama, NIM, atau IPK).',
-                            'File Handling Persistence: Penyimpanan dan pembacaan database mahasiswa ke berkas lokal secara otomatis menggunakan fopen, fclose, fprintf, dan fscanf.',
-                            'Validasi Input & Sanitasi Memori: Pembersihan buffer input (bersihkanInput dengan while), validasi rentang semester & IPK (0.00 - 4.00), pencegahan duplikasi NIM, serta penanganan string yang aman (fgets & strcspn).'
+                            'Earned a grade of A in the Programming Algorithms course.',
+                            'Implemented modular code with dedicated functions and pointers (&jumlah, *jumlah) for efficient parameter passing.',
+                            'Complete CRUD: add student records, display formatted tables, update personal details and GPA, and delete records with re-indexing.',
+                            'Searching and sorting: Linear Search by unique student ID (cariIndexNIM) and multi-criteria Bubble Sort by name, student ID, or GPA.',
+                            'File persistence: automatically save and load student records using fopen, fclose, fprintf, and fscanf.',
+                            'Input validation: clear the input buffer with bersihkanInput, validate semester and GPA ranges (0.00–4.00), prevent duplicate student IDs, and handle strings safely with fgets and strcspn.'
                         ],
                         curriculumTable: [
-                            { topic: 'Variabel & tipe data', impl: 'int, float, char' },
-                            { topic: 'Konstanta', impl: '#define MAX_MAHASISWA' },
-                            { topic: 'Operator', impl: '+, -, /, ++, >=, &&, dll.' },
+                            { topic: 'Variables & data types', impl: 'int, float, char' },
+                            { topic: 'Constants', impl: '#define MAX_MAHASISWA' },
+                            { topic: 'Operators', impl: '+, -, /, ++, >=, &&, etc.' },
                             { topic: 'Input/output', impl: 'printf, scanf, fgets' },
-                            { topic: 'if / else', impl: 'Validasi dan statistik' },
-                            { topic: 'switch-case', impl: 'Menu utama & sorting' },
-                            { topic: 'for', impl: 'Traversal, sorting, hapus data' },
+                            { topic: 'if / else', impl: 'Validation and statistics' },
+                            { topic: 'switch-case', impl: 'Main menu and sorting' },
+                            { topic: 'for', impl: 'Traversal, sorting, record deletion' },
                             { topic: 'while', impl: 'bersihkanInput()' },
-                            { topic: 'do-while', impl: 'Menu utama & validasi' },
+                            { topic: 'do-while', impl: 'Main menu and validation' },
                             { topic: 'Array', impl: 'Mahasiswa data[100]' },
-                            { topic: 'Array 2D', impl: 'Tidak diperlukan secara natural dalam kasus ini' },
+                            { topic: '2D Array', impl: 'Not needed for this application' },
                             { topic: 'String', impl: 'strlen, strcmp, strcpy, strcspn' },
-                            { topic: 'Function', impl: 'Program dipecah menjadi banyak function' },
+                            { topic: 'Function', impl: 'Program organized into dedicated functions' },
                             { topic: 'Pointer', impl: 'int *jumlah, &jumlah' },
                             { topic: 'Struct', impl: 'typedef struct Mahasiswa' },
                             { topic: 'Linear Search', impl: 'cariIndexNIM()' },
-                            { topic: 'Bubble Sort', impl: 'Nama, NIM, dan IPK' },
+                            { topic: 'Bubble Sort', impl: 'Name, student ID, and GPA' },
                             { topic: 'File Handling', impl: 'fopen, fclose, fprintf, fscanf' },
-                            { topic: 'Validasi', impl: 'NIM, IPK, semester, input menu' },
+                            { topic: 'Validation', impl: 'Student ID, GPA, semester, menu input' },
                             { topic: 'CRUD', impl: 'Create, Read, Update, Delete' },
-                            { topic: 'Statistik', impl: 'average, min, max, persentase' }
+                            { topic: 'Statistics', impl: 'average, min, max, percentage' }
                         ],
-                        cardSkills: ['Bahasa C', 'Struct', 'Pointer', 'Bubble Sort', 'Linear Search', 'File Handling', 'Validasi & Statistik'],
-                        skills: ['Bahasa C', 'Algorithms', 'Data Structures', 'Pointer & Memory', 'File Handling', 'Bubble Sort', 'Linear Search', 'CRUD System']
+                        cardSkills: ['C Language', 'Struct', 'Pointer', 'Bubble Sort', 'Linear Search', 'File Handling', 'Validation & Statistics'],
+                        skills: ['C Language', 'Algorithms', 'Data Structures', 'Pointer & Memory', 'File Handling', 'Bubble Sort', 'Linear Search', 'CRUD System']
                     }
                 ],
 
