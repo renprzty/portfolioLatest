@@ -187,6 +187,14 @@
     </style>
 </head>
 <body x-data="portfolio()" x-init="init()" @keydown.escape="modalOpen = false; cvModal = false">
+    <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" class="absolute" aria-hidden="true">
+        <symbol id="brand-linkedin" viewBox="0 0 24 24">
+            <path d="M20.45 2H3.55C2.69 2 2 2.68 2 3.52v16.96c0 .84.69 1.52 1.55 1.52h16.9c.86 0 1.55-.68 1.55-1.52V3.52c0-.84-.69-1.52-1.55-1.52ZM7.93 18.75H4.98V9.2h2.95v9.55ZM6.46 7.9a1.71 1.71 0 1 1 0-3.42 1.71 1.71 0 0 1 0 3.42Zm12.29 10.85H15.8V14.1c0-1.11-.02-2.54-1.55-2.54-1.55 0-1.79 1.21-1.79 2.46v4.73H9.51V9.2h2.83v1.3h.04c.39-.74 1.36-1.52 2.8-1.52 3 0 3.57 1.98 3.57 4.55v5.22Z"/>
+        </symbol>
+        <symbol id="brand-github" viewBox="0 0 24 24">
+            <path d="M12 .75a11.25 11.25 0 0 0-3.56 21.92c.56.1.77-.24.77-.54v-2.09c-3.13.68-3.79-1.33-3.79-1.33-.51-1.3-1.25-1.65-1.25-1.65-1.02-.7.08-.69.08-.69 1.13.08 1.73 1.16 1.73 1.16 1 1.72 2.64 1.22 3.28.93.1-.73.39-1.22.71-1.5-2.5-.28-5.13-1.25-5.13-5.56 0-1.23.44-2.23 1.16-3.02-.12-.28-.5-1.43.11-2.98 0 0 .95-.3 3.1 1.15a10.8 10.8 0 0 1 5.64 0c2.15-1.45 3.1-1.15 3.1-1.15.61 1.55.23 2.7.11 2.98.72.79 1.16 1.79 1.16 3.02 0 4.32-2.64 5.27-5.15 5.55.4.35.76 1.03.76 2.08v3.1c0 .3.2.65.77.54A11.25 11.25 0 0 0 12 .75Z"/>
+        </symbol>
+    </svg>
 
     <!-- Liquid background -->
     <div class="liquid-bg">
@@ -271,10 +279,10 @@
                         Explore Projects <i data-lucide="arrow-down" class="w-4 h-4"></i>
                     </a>
                     <a href="https://linkedin.com/in/moh-rendy-prasetyo-putro-88990a1a5/" target="_blank" rel="noopener noreferrer" class="glass w-12 h-12 rounded-full flex items-center justify-center hover:scale-110 transition" aria-label="LinkedIn">
-                        <i data-lucide="linkedin" class="w-5 h-5"></i>
+                        <svg class="w-5 h-5" fill="currentColor" aria-hidden="true"><use href="#brand-linkedin"></use></svg>
                     </a>
                     <a href="https://github.com/renprzty" target="_blank" rel="noopener noreferrer" class="glass w-12 h-12 rounded-full flex items-center justify-center hover:scale-110 transition" aria-label="GitHub">
-                        <i data-lucide="github" class="w-5 h-5"></i>
+                        <svg class="w-5 h-5" fill="currentColor" aria-hidden="true"><use href="#brand-github"></use></svg>
                     </a>
                 </div>
             </div>
@@ -324,17 +332,20 @@
                 <p class="text-muted mt-3 max-w-2xl mx-auto">Web applications and products built with modern stacks. Tap any card for full details, media demo, and skills applied.</p>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-6">
+            <div class="grid md:grid-cols-1">
                 <template x-for="p in projects" :key="p.title">
                     <article @click="openDetail(p)" @mousemove="spot($event)" class="glass glass-hover spot reveal rounded-[32px] overflow-hidden cursor-pointer flex flex-col">
-                        <!-- media placeholder -->
+                        <!-- project thumbnail -->
                         <div class="relative h-56 sm:h-64 m-3 rounded-[24px] overflow-hidden flex items-center justify-center" :style="`background: linear-gradient(135deg, ${p.c1}, ${p.c2})`">
                             <div class="absolute inset-0 opacity-30" style="background-image: radial-gradient(circle at 20% 20%, #fff 0, transparent 40%), radial-gradient(circle at 80% 80%, #fff 0, transparent 35%);"></div>
-                            <div class="glass w-16 h-16 rounded-full flex items-center justify-center text-white !bg-white/25 !border-white/40 transition group-hover:scale-110">
+                            <template x-if="p.thumbnailSrc">
+                                <img :src="p.thumbnailSrc" :alt="p.title + ' preview'" loading="lazy" class="absolute inset-0 w-full h-full object-cover" @error="p.thumbnailSrc = ''">
+                            </template>
+                            <div x-show="!p.thumbnailSrc" class="glass w-16 h-16 rounded-full flex items-center justify-center text-white !bg-white/25 !border-white/40 transition group-hover:scale-110">
                                 <i :data-lucide="p.mediaType === 'video' ? 'play' : 'image'" class="w-7 h-7"></i>
                             </div>
                             <span x-show="p.featured" class="absolute top-3 left-3 glass !bg-white/30 !border-white/40 text-white text-[11px] font-semibold px-3 py-1 rounded-full">★ Main Featured Project</span>
-                            <span class="absolute bottom-3 right-3 glass !bg-black/25 !border-white/20 text-white text-[11px] font-medium px-3 py-1 rounded-full" x-text="p.mediaType === 'video' ? 'Video & UI Preview' : 'Photo Preview'"></span>
+                            <span class="absolute bottom-3 right-3 glass !bg-black/25 !border-white/20 text-white text-[11px] font-medium px-3 py-1 rounded-full" x-text="p.thumbnailSrc ? 'UI Preview' : (p.mediaType === 'video' ? 'Video & UI Preview' : 'Photo Preview')"></span>
                         </div>
 
                         <div class="px-6 sm:px-7 pb-6 pt-3 flex-1 flex flex-col">
@@ -445,6 +456,7 @@
                         <div class="relative h-40 m-3 rounded-[20px] flex flex-col items-center justify-center gap-2 text-white" :style="`background: linear-gradient(135deg, ${c.c1}, ${c.c2})`">
                             <div class="w-12 h-12 rounded-2xl bg-white/25 border border-white/40 backdrop-blur-xl flex items-center justify-center"><i data-lucide="badge-check" class="w-6 h-6"></i></div>
                             <span class="text-xs font-semibold" x-text="c.thumb"></span>
+                            <img :src="c.imageSrc" :alt="c.title + ' certificate'" loading="lazy" class="absolute inset-0 w-full h-full object-contain bg-white rounded-[20px]" @error="$el.hidden = true">
                         </div>
                         <div class="px-6 pb-6 pt-2 flex-1 flex flex-col">
                             <p class="text-xs font-semibold" :style="`color:${c.c1}`" x-text="c.badge"></p>
@@ -474,7 +486,14 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mt-10">
                     <template x-for="ct in contacts" :key="ct.label">
                         <a :href="ct.href" target="_blank" rel="noopener noreferrer" @mousemove="spot($event)" class="glass glass-hover spot rounded-3xl p-5 flex flex-col items-center gap-2">
-                            <div class="w-11 h-11 rounded-2xl flex items-center justify-center text-white" :style="`background:${ct.color}`"><i :data-lucide="ct.icon" class="w-5 h-5"></i></div>
+                            <div class="w-11 h-11 rounded-2xl flex items-center justify-center text-white" :style="`background:${ct.color}`">
+                                <template x-if="ct.icon === 'linkedin' || ct.icon === 'github'">
+                                    <svg class="w-5 h-5" fill="currentColor" aria-hidden="true"><use :href="'#brand-' + ct.icon"></use></svg>
+                                </template>
+                                <template x-if="ct.icon !== 'linkedin' && ct.icon !== 'github'">
+                                    <i :data-lucide="ct.icon" class="w-5 h-5"></i>
+                                </template>
+                            </div>
                             <span class="text-xs text-muted" x-text="ct.label"></span>
                             <span class="text-xs font-semibold truncate max-w-full" x-text="ct.value"></span>
                         </a>
@@ -513,7 +532,10 @@
                 <template x-if="activeItem?.videoEmbed && !activeItem?.videoSrc">
                     <iframe class="relative z-10 w-full h-full border-0" :src="activeItem.videoEmbed" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
                 </template>
-                <template x-if="!activeItem?.videoSrc && !activeItem?.videoEmbed">
+                <template x-if="activeItem?.imageSrc && !activeItem?.videoSrc && !activeItem?.videoEmbed">
+                    <img :src="activeItem.imageSrc" :alt="activeItem.title + ' certificate'" class="relative z-10 w-full h-full object-contain bg-white" @error="activeItem.imageSrc = ''">
+                </template>
+                <template x-if="!activeItem?.imageSrc && !activeItem?.videoSrc && !activeItem?.videoEmbed">
                     <div class="text-center text-white p-6 space-y-3 max-w-md">
                         <div class="inline-flex w-16 h-16 rounded-full bg-white/25 border border-white/40 backdrop-blur-xl items-center justify-center">
                             <svg x-show="activeItem?.mediaType === 'video'" class="w-7 h-7 fill-current ml-1" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
@@ -714,7 +736,8 @@
                         cardLabel: 'PT Triple One Global · Intern Product',
                         period: 'Aug 2025 - Jan 2026', tag: 'Live Demo',
                         link: 'https://bosgabut.com', linkText: 'Visit bosgabut.com',
-                        mediaType: 'video', videoSrc: '', videoEmbed: '',
+                        mediaType: 'video', videoSrc: './images/demo_bos_gabut.mp4', videoEmbed: '',
+                        thumbnailSrc: './images/bos-gabut.png',
                         c1: '#0071e3', c2: '#5ac8fa',
                         placeholderLabel: 'Product Demo & UI Preview',
                         short: 'Web platform developed as a Front End Web Developer Intern at PT Triple One Global. Implemented responsive, reactive components and server integration with high usability.',
@@ -727,25 +750,6 @@
                         ],
                         cardSkills: ['Laravel', 'Livewire', 'PHP', 'JavaScript', 'HTML', 'CSS'],
                         skills: ['Laravel', 'Livewire', 'PHP', 'JavaScript', 'HTML', 'CSS', 'Figma', 'Git']
-                    },
-                    {
-                        type: 'Project', featured: false, title: 'Personal Web Portfolio',
-                        badge: 'Personal Project', subtitle: 'Clean & Modern Developer Showcase',
-                        cardLabel: 'Personal Web Project · 2026',
-                        period: '2026', tag: 'Hosted Live',
-                        link: 'https://renprzty.github.io/portfolioLatest', linkText: 'renprzty.github.io/portfolioLatest',
-                        mediaType: 'photo', c1: '#af52de', c2: '#ff375f',
-                        placeholderLabel: 'Interactive Web UI & Architecture',
-                        short: 'Personal web portfolio with Apple Liquid Glass inspired UI, showcase gallery, reactive detail modals, light/dark mode, and responsive layout deployed on GitHub Pages.',
-                        description: 'A responsive, high-performance single-file web portfolio built to present full-stack engineering skills, professional projects, and official credentials with modern design patterns and accessible architecture.',
-                        details: [
-                            'Constructed with Tailwind CSS, Alpine.js reactive components, and clean semantic HTML5.',
-                            'Single-file architecture for blazing fast deployment and high maintainability.',
-                            'Liquid glass materials (backdrop blur, specular highlights), scroll reveal animations, light/dark theme, and interactive modals.',
-                            'Automated version control and deployment workflow via GitHub Pages.'
-                        ],
-                        cardSkills: ['JavaScript', 'Tailwind CSS', 'Alpine.js', 'HTML5', 'Git'],
-                        skills: ['JavaScript', 'Tailwind CSS', 'Alpine.js', 'HTML5', 'CSS3', 'Git', 'GitHub Pages']
                     }
                 ],
 
@@ -803,6 +807,7 @@
                         type: 'Certification', title: 'AWS Training - Getting Started with Compute', short: 'AWS Training - Getting Started with Compute',
                         badge: 'Amazon Web Services', subtitle: 'Cloud Infrastructure & Compute Fundamentals', period: '2025',
                         thumb: 'AWS Training (2025)', mediaType: 'certificate', c1: '#ff9f0a', c2: '#ff6b00',
+                        imageSrc: './images/aws-compute.png',
                         placeholderLabel: 'AWS Certificate of Completion',
                         description: 'Official cloud training from Amazon Web Services (AWS) covering modern cloud compute architectures, scaling principles, and serverless compute paradigms.',
                         details: [
@@ -818,6 +823,7 @@
                         type: 'Certification', title: 'Cisco Networking Academy - IT Customer Support Basics', short: 'IT Customer Support Basics',
                         badge: 'Cisco Networking Academy', subtitle: 'Technical Diagnostics & Service Fundamentals', period: '2026',
                         thumb: 'Cisco Certification (2026)', mediaType: 'certificate', c1: '#0a84ff', c2: '#5ac8fa',
+                        imageSrc: './images/cisco-it-support.png',
                         placeholderLabel: 'Cisco Official Certification',
                         description: 'Foundational certification from Cisco Networking Academy validating customer technical support, structured problem diagnosis, and service communication skills.',
                         details: [
@@ -833,6 +839,7 @@
                         type: 'Certification', title: 'Cisco Networking Academy – Operating Systems Support', short: 'Operating Systems Support',
                         badge: 'Cisco Networking Academy', subtitle: 'OS Configuration, Management & Troubleshooting', period: '2026',
                         thumb: 'Cisco Certification (2026)', mediaType: 'certificate', c1: '#30d158', c2: '#00a86b',
+                        imageSrc: './images/cisco-os-support.png',
                         placeholderLabel: 'Cisco Official Certification',
                         description: 'Specialized credential validating comprehensive operational management, command-line proficiency, and technical support across modern operating systems.',
                         details: [
