@@ -267,7 +267,7 @@
                         <span class="gradient-text">Moh Rendy Prasetyo Putro</span>
                     </h1>
                     <p class="text-lg sm:text-2xl font-semibold text-muted tracking-tight">
-                        Full-Stack Web Developer · JavaScript, PHP &amp; MySQL
+                        Full-Stack/Front-End Web Developer
                     </p>
                 </div>
 
@@ -332,7 +332,7 @@
                 <p class="text-muted mt-3 max-w-2xl mx-auto">Web applications and products built with modern stacks. Tap any card for full details, media demo, and skills applied.</p>
             </div>
 
-            <div class="grid md:grid-cols-1">
+            <div class="grid md:grid-cols-2 gap-6">
                 <template x-for="p in projects" :key="p.title">
                     <article @click="openDetail(p)" @mousemove="spot($event)" class="glass glass-hover spot reveal rounded-[32px] overflow-hidden cursor-pointer flex flex-col">
                         <!-- project thumbnail -->
@@ -341,11 +341,14 @@
                             <template x-if="p.thumbnailSrc">
                                 <img :src="p.thumbnailSrc" :alt="p.title + ' preview'" loading="lazy" class="absolute inset-0 w-full h-full object-cover" @error="p.thumbnailSrc = ''">
                             </template>
-                            <div x-show="!p.thumbnailSrc" class="glass w-16 h-16 rounded-full flex items-center justify-center text-white !bg-white/25 !border-white/40 transition group-hover:scale-110">
+                            <template x-if="p.previewSrc">
+                                <video :src="p.previewSrc" :aria-label="p.title + ' demo preview'" autoplay muted loop playsinline preload="metadata" class="absolute inset-0 w-full h-full object-cover pointer-events-none" @loadedmetadata="$el.muted = true" @timeupdate="if ($el.currentTime >= 6) $el.currentTime = 0" @error="p.previewSrc = ''"></video>
+                            </template>
+                            <div x-show="!p.thumbnailSrc && !p.previewSrc" class="glass w-16 h-16 rounded-full flex items-center justify-center text-white !bg-white/25 !border-white/40 transition group-hover:scale-110">
                                 <i :data-lucide="p.mediaType === 'video' ? 'play' : 'image'" class="w-7 h-7"></i>
                             </div>
                             <span x-show="p.featured" class="absolute top-3 left-3 glass !bg-white/30 !border-white/40 text-white text-[11px] font-semibold px-3 py-1 rounded-full">★ Main Featured Project</span>
-                            <span class="absolute bottom-3 right-3 glass !bg-black/25 !border-white/20 text-white text-[11px] font-medium px-3 py-1 rounded-full" x-text="p.thumbnailSrc ? 'UI Preview' : (p.mediaType === 'video' ? 'Video & UI Preview' : 'Photo Preview')"></span>
+                            <span class="absolute bottom-3 right-3 glass !bg-black/25 !border-white/20 text-white text-[11px] font-medium px-3 py-1 rounded-full" x-text="p.previewSrc ? 'Demo Preview' : (p.thumbnailSrc ? 'UI Preview' : (p.mediaType === 'video' ? 'Video & UI Preview' : 'Photo Preview'))"></span>
                         </div>
 
                         <div class="px-6 sm:px-7 pb-6 pt-3 flex-1 flex flex-col">
@@ -603,7 +606,13 @@
                 </div>
 
                 <template x-if="activeItem?.link">
-                    <div class="flex justify-end pt-2">
+                    <div class="flex flex-wrap justify-end gap-3 pt-2">
+                        <template x-if="activeItem?.github">
+                            <a :href="activeItem.github" target="_blank" rel="noopener noreferrer" class="btn glass">
+                                <svg class="w-4 h-4" fill="currentColor" aria-hidden="true"><use href="#brand-github"></use></svg>
+                                <span>View on GitHub</span>
+                            </a>
+                        </template>
                         <a :href="activeItem.link" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
                             <span x-text="activeItem.linkText || 'Visit Link'"></span>
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M7 17 17 7M7 7h10v10"/></svg>
@@ -636,7 +645,7 @@
             <div id="cv-doc" class="p-6 sm:p-10 overflow-y-auto space-y-7 text-sm">
                 <div class="text-center space-y-2 pb-6 border-b" style="border-color: var(--glass-edge)">
                     <h1 class="text-3xl font-bold tracking-tight">MOH RENDY PRASETYO PUTRO</h1>
-                    <p class="text-xs font-semibold accent uppercase tracking-wider">Full-Stack Web Developer | JavaScript, PHP &amp; MySQL</p>
+                    <p class="text-xs font-semibold accent uppercase tracking-wider">Full-Stack Web Developer</p>
                     <p class="text-xs text-muted">Surabaya, East Java, Indonesia · +62 813 3204 9181 · rendyprassetyo@gmail.com</p>
                     <p class="text-xs text-muted">
                         <a href="https://renprzty.github.io/portfolioLatest" target="_blank" class="hover:underline">renprzty.github.io/portfolioLatest</a> ·
@@ -729,6 +738,7 @@
                         period: 'Aug 2025 - Jan 2026', tag: 'Live Demo',
                         link: 'https://bosgabut.com', linkText: 'Visit bosgabut.com',
                         mediaType: 'video', videoSrc: './images/demo_bos_gabut.mp4', videoEmbed: '',
+                        previewSrc: './images/demo_bos_gabut.mp4',
                         thumbnailSrc: './images/bos-gabut.png',
                         c1: '#0071e3', c2: '#5ac8fa',
                         placeholderLabel: 'Product Demo & UI Preview',
@@ -742,6 +752,30 @@
                         ],
                         cardSkills: ['Laravel', 'Livewire', 'PHP', 'JavaScript', 'HTML', 'CSS'],
                         skills: ['Laravel', 'Livewire', 'PHP', 'JavaScript', 'HTML', 'CSS', 'Figma', 'Git']
+                    },
+                    {
+                        type: 'Project', featured: false, title: 'NeedaJob',
+                        badge: 'Personal Project · Prototype',
+                        subtitle: 'A clearer, more organized job search',
+                        cardLabel: 'Job Application Tracker · Personal Project',
+                        period: 'Ongoing development', tag: 'Prototype',
+                        link: 'https://needajob-ecru.vercel.app/', linkText: 'Try NeedaJob',
+                        github: 'https://github.com/renprzty/needajob',
+                        mediaType: 'video', videoSrc: './images/demo_needajob.mp4', videoEmbed: '', thumbnailSrc: '',
+                        previewSrc: './images/demo_needajob.mp4',
+                        c1: '#0071e3', c2: '#30d158',
+                        placeholderLabel: 'NeedaJob · Job Application Tracker',
+                        mediaNote: 'Prototype in active development. Explore the live app using the link below.',
+                        short: 'Turn a scattered job search into a clear plan. NeedaJob helps job seekers organize applications, track progress, and stay focused on their next opportunity. Prototype in active development.',
+                        description: 'NeedaJob is a job application tracker designed to bring clarity and momentum to the job search. By keeping applications and their progress in one place, it helps job seekers stay organized, see where they stand, and approach their next opportunity with confidence. Built with React and Supabase, the project is currently an ongoing prototype, with features and the experience still being refined.',
+                        details: [
+                            'Designed to keep job applications and their progress organized in one place for a more manageable job search.',
+                            'Built with React for an interactive web experience and Supabase for the backend and data layer.',
+                            'Available as a live prototype, with the source code on GitHub for a closer look at the implementation.',
+                            'Actively evolving through ongoing development and improvements to features and usability.'
+                        ],
+                        cardSkills: ['React', 'Supabase', 'JavaScript', 'HTML', 'CSS'],
+                        skills: ['React', 'Supabase', 'JavaScript', 'HTML', 'CSS']
                     }
                 ],
 
