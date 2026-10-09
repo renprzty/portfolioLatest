@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Student Data Management — Interactive Demo</title>
+<style>
+*{box-sizing:border-box}html,body{height:100%;margin:0}body{background:#10171b;color:#d6fbe3;font:14px/1.65 ui-monospace,SFMono-Regular,Consolas,monospace;display:flex;flex-direction:column}header{padding:12px 16px;border-bottom:1px solid #34464a;display:flex;flex-wrap:wrap;align-items:center;gap:10px}header strong{flex:1}button{font:inherit;cursor:pointer;background:#20342c;color:#d6fbe3;border:1px solid #486857;border-radius:8px;padding:6px 10px}button:hover{background:#31523f}button:focus-visible,input:focus-visible{outline:2px solid #65e69a;outline-offset:3px}#output{margin:0;padding:16px;overflow:auto;flex:1;white-space:pre-wrap;overflow-wrap:anywhere;tab-size:4}form{border-top:1px solid #34464a;padding:12px 16px;display:flex;gap:10px;align-items:center}input{font:inherit;min-width:0;flex:1;background:#172427;color:#fff;border:1px solid #486857;border-radius:8px;padding:10px}footer{padding:0 16px 10px;color:#9eafa5;font:11px/1.5 system-ui}a{color:#8ae8b0}#prompt{color:#8ae8b0} @media(max-width:450px){body{font-size:12px}header{padding:10px}#output{padding:10px}form{padding:10px;gap:6px}}
+</style>
+</head>
+<body>
+<header><strong>Student Data Management</strong><button id="samples" type="button">Load sample data</button><button id="restart" type="button">Restart</button></header>
+<pre id="output" role="log" aria-live="polite" aria-relevant="additions text" tabindex="0"></pre>
+<form id="command"><label id="prompt" for="input">Input</label><input id="input" autocomplete="off" spellcheck="false" aria-describedby="help"><button type="submit">Enter</button></form>
+<footer id="help">Type a menu number, then press Enter. Browser adaptation of <a href="test.c" target="_blank" rel="noopener">the original C source</a>. Records are saved only in this browser. <span id="storage-status"></span></footer>
+<script src="demo.js"></script>
+</body>
+</html>

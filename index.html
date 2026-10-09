@@ -150,6 +150,22 @@
         .chip-accent { background: rgba(0,113,227,.12); color: var(--accent); border-color: rgba(0,113,227,.25); }
         .dark .chip-accent { background: rgba(41,151,255,.15); border-color: rgba(41,151,255,.3); }
 
+        /* Activity timeline: dates sit beside the rail on desktop, above cards on mobile. */
+        .activity-timeline::before { content: ''; position: absolute; top: 12px; bottom: 0; left: 10px; width: 2px; background: linear-gradient(var(--accent), var(--glass-border)); }
+        .activity-entry { padding-left: 36px; }
+        .activity-date { margin-bottom: 18px; }
+        .activity-dot { position: absolute; left: 3px; top: 9px; width: 16px; height: 16px; border-radius: 50%; background: var(--accent); border: 3px solid var(--bg); box-shadow: 0 0 0 2px var(--accent); }
+        @media (min-width: 768px) {
+            .activity-timeline::before { left: 195px; }
+            .activity-entry { padding-left: 228px; }
+            .activity-date { position: absolute; left: 0; top: 0; width: 174px; text-align: right; }
+            .activity-dot { left: 188px; }
+        }
+
+        /* Shared detail popup media scales with the available viewport height. */
+        .detail-media, .detail-gallery-image { height: clamp(140px, 30dvh, 240px); }
+        .detail-gallery-arrow { top: clamp(50px, calc(15dvh - 20px), 100px); }
+
         /* scroll reveal */
         .reveal { opacity: 0; transform: translateY(28px) scale(.98); filter: blur(6px); transition: opacity .9s cubic-bezier(.2,.8,.2,1), transform .9s cubic-bezier(.2,.8,.2,1), filter .9s ease; }
         .reveal.in { opacity: 1; transform: none; filter: none; }
@@ -372,6 +388,69 @@
         </div>
     </section>
 
+    <!-- ================= ACTIVITY ================= -->
+    <section id="activity" class="py-24 scroll-mt-24">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-14 reveal">
+                <p class="text-sm font-semibold accent mb-2">Beyond the Classroom</p>
+                <h2 class="text-4xl md:text-5xl font-bold tracking-tight">College Activities</h2>
+                <p class="text-muted mt-3 max-w-2xl mx-auto">A collection of campus experiences, community involvement, and moments of growth throughout college. Explore each activity for photos, highlights, and lessons learned.</p>
+            </div>
+
+            <div x-show="activities.length === 0" class="glass rounded-[32px] p-8 sm:p-12 text-center reveal">
+                <div class="mx-auto mb-5 w-16 h-16 rounded-2xl flex items-center justify-center" style="background: linear-gradient(135deg, #5ac8fa, #0071e3)">
+                    <i data-lucide="graduation-cap" class="w-8 h-8 text-white"></i>
+                </div>
+                <span class="chip chip-accent mb-4">College Life</span>
+                <h3 class="text-2xl font-bold tracking-tight">Stories to Share</h3>
+                <p class="text-sm text-muted leading-relaxed mt-3 max-w-md mx-auto">Activity highlights are coming soon. This space will bring together memorable experiences from my college journey.</p>
+            </div>
+
+            <ol class="activity-timeline relative space-y-10" aria-label="College activity timeline">
+                <template x-for="a in activities" :key="a.title">
+                    <li class="activity-entry relative">
+                        <div class="activity-date">
+                            <span class="chip chip-accent" x-text="a.period"></span>
+                            <p class="text-xs text-muted mt-3" x-text="a.tag"></p>
+                        </div>
+                        <span class="activity-dot" aria-hidden="true"></span>
+                        <article @mousemove="spot($event)" class="glass glass-hover spot rounded-[32px] overflow-hidden">
+                            <div class="grid lg:grid-cols-2">
+                                <div class="relative min-h-[240px] lg:min-h-[360px] m-3 rounded-[24px] overflow-hidden" :style="`background: linear-gradient(135deg, ${a.c1}, ${a.c2})`">
+                                    <img :src="a.thumbnailSrc || a.imageSrc" :alt="a.title + ' team photo'" loading="lazy" class="absolute inset-0 w-full h-full object-cover">
+                                    <div class="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/60 to-transparent"></div>
+                                    <span class="absolute bottom-4 left-4 text-xs font-semibold text-white" x-text="a.cardLabel"></span>
+                                </div>
+                                <div class="p-6 sm:p-7 lg:pl-4 flex flex-col items-start">
+                                    <p class="text-xs font-semibold accent" x-text="a.badge"></p>
+                                    <h3 class="text-2xl font-bold tracking-tight mt-2" x-text="a.title"></h3>
+                                    <p class="text-sm font-medium mt-2" x-text="a.subtitle"></p>
+                                    <p class="text-sm text-muted leading-relaxed mt-4" x-text="a.short"></p>
+                                    <p class="text-[11px] font-semibold uppercase tracking-wider text-muted mt-5 mb-2">Workshop Topics</p>
+                                    <div class="flex flex-wrap gap-2">
+                                        <template x-for="sk in a.cardSkills" :key="sk"><span class="chip" x-text="sk"></span></template>
+                                    </div>
+                                    <button type="button" @click="openDetail(a)" class="btn btn-primary mt-6" :aria-label="'View highlights and documentation for ' + a.title">View highlights &amp; documentation <span aria-hidden="true">&#8599;</span></button>
+                                </div>
+                            </div>
+                            <div class="px-6 sm:px-7 pb-6">
+                                <p class="text-[11px] font-semibold uppercase tracking-wider text-muted mb-3">Documentation</p>
+                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                    <template x-for="doc in a.documentation" :key="doc.src">
+                                        <a :href="doc.src" target="_blank" rel="noopener noreferrer" class="glass rounded-2xl overflow-hidden block group" :aria-label="'Open ' + doc.caption + ' in a new tab'">
+                                            <img :src="doc.src" :alt="doc.alt" loading="lazy" class="w-full h-36 transition-transform duration-500 group-hover:scale-105" :class="doc.kind === 'certificate' ? 'object-contain bg-white' : 'object-cover'">
+                                            <p class="text-xs font-medium p-3" x-text="doc.caption"></p>
+                                        </a>
+                                    </template>
+                                </div>
+                            </div>
+                        </article>
+                    </li>
+                </template>
+            </ol>
+        </div>
+    </section>
+
     <!-- ================= COLLEGE PROJECTS ================= -->
     <section id="college-projects" class="py-24">
         <div class="max-w-6xl mx-auto px-6">
@@ -504,7 +583,7 @@
     </footer>
 
     <!-- ================= DETAIL MODAL ================= -->
-    <div x-show="modalOpen" x-cloak x-transition.opacity.duration.300ms class="fixed inset-0 z-50 overflow-y-auto bg-black/30 dark:bg-black/60 backdrop-blur-md p-4 sm:p-8 flex items-start sm:items-center justify-center">
+    <div x-show="modalOpen" x-cloak x-transition.opacity.duration.300ms class="fixed inset-0 z-50 overflow-hidden bg-black/30 dark:bg-black/60 backdrop-blur-md p-3 sm:p-5 flex items-center justify-center">
         <div @click.outside="closeDetail()" x-show="modalOpen"
              x-transition:enter="transition ease-[cubic-bezier(.34,1.56,.64,1)] duration-500"
              x-transition:enter-start="opacity-0 scale-90 translate-y-6"
@@ -512,14 +591,43 @@
              x-transition:leave="transition ease-in duration-200"
              x-transition:leave-start="opacity-100 scale-100"
              x-transition:leave-end="opacity-0 scale-95"
-             class="glass glass-strong relative w-full max-w-3xl rounded-[36px] overflow-hidden my-8">
+             class="glass glass-strong relative w-full max-w-2xl rounded-[28px] overflow-hidden flex flex-col" style="max-height: calc(100dvh - 2.5rem);">
 
             <button @click="closeDetail()" class="absolute top-5 right-5 z-20 glass w-10 h-10 rounded-full flex items-center justify-center" aria-label="Close">
                 <i data-lucide="x" class="w-5 h-5"></i>
             </button>
 
+            <div x-ref="detailScroll" class="min-h-0 overflow-y-auto overscroll-contain">
+            <!-- Swipeable activity gallery -->
+            <template x-if="galleryPhotos.length">
+                <div class="m-3" @keydown.arrow-left.prevent="moveGallery(-1)" @keydown.arrow-right.prevent="moveGallery(1)">
+                    <div class="relative">
+                        <div x-ref="activityGallery" @scroll.debounce.80ms="galleryIndex = Math.round($el.scrollLeft / $el.clientWidth)" class="flex overflow-x-auto snap-x snap-mandatory rounded-[28px]" style="scrollbar-width: none;" tabindex="0" role="region" aria-label="Activity photo gallery">
+                            <template x-for="doc in galleryPhotos" :key="doc.src">
+                                <figure class="w-full flex-none snap-center">
+                                    <a :href="doc.src" target="_blank" rel="noopener noreferrer" :aria-label="'Open ' + doc.caption + ' in full size'" class="block">
+                                        <img :src="doc.src" :alt="doc.alt" class="w-full object-contain detail-gallery-image" style="background: var(--bg);" draggable="false">
+                                    </a>
+                                    <figcaption class="text-xs text-muted text-center px-12 py-3" x-text="doc.caption"></figcaption>
+                                </figure>
+                            </template>
+                        </div>
+                        <button type="button" @click="moveGallery(-1)" x-show="galleryPhotos.length > 1" class="absolute left-3 detail-gallery-arrow w-10 h-10 rounded-full bg-black/50 text-white border border-white/30 flex items-center justify-center hover:bg-black/70 transition" aria-label="Previous image"><span aria-hidden="true" class="text-2xl">&#8249;</span></button>
+                        <button type="button" @click="moveGallery(1)" x-show="galleryPhotos.length > 1" class="absolute right-3 detail-gallery-arrow w-10 h-10 rounded-full bg-black/50 text-white border border-white/30 flex items-center justify-center hover:bg-black/70 transition" aria-label="Next image"><span aria-hidden="true" class="text-2xl">&#8250;</span></button>
+                    </div>
+                    <div class="flex items-center justify-center gap-2 pb-2" aria-label="Choose gallery image">
+                        <template x-for="(doc, i) in galleryPhotos" :key="doc.src">
+                            <button type="button" @click="goToGallery(i)" class="w-7 h-7 flex items-center justify-center rounded-full" :aria-label="'Show ' + doc.caption" :aria-current="galleryIndex === i ? 'true' : 'false'">
+                                <span class="h-1.5 rounded-full transition-all" :class="galleryIndex === i ? 'w-5 bg-accent' : 'w-1.5 bg-gray-400'"></span>
+                            </button>
+                        </template>
+                        <span class="text-[11px] text-muted ml-1" aria-live="polite" x-text="(galleryIndex + 1) + ' / ' + galleryPhotos.length"></span>
+                    </div>
+                </div>
+            </template>
+
             <!-- media area -->
-            <div class="relative m-3 h-64 sm:h-80 rounded-[28px] overflow-hidden flex items-center justify-center"
+            <div x-show="!galleryPhotos.length" class="relative m-3 detail-media rounded-[22px] overflow-hidden flex items-center justify-center"
                  :style="`background: linear-gradient(135deg, ${activeItem?.c1 || '#0071e3'}, ${activeItem?.c2 || '#af52de'})`">
                 <template x-if="activeItem?.videoSrc">
                     <video controls autoplay class="relative z-10 w-full h-full object-contain bg-black" :src="activeItem.videoSrc" @error="activeItem.videoSrc = ''"></video>
@@ -528,7 +636,7 @@
                     <iframe class="relative z-10 w-full h-full border-0" :src="activeItem.videoEmbed" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
                 </template>
                 <template x-if="activeItem?.imageSrc && !activeItem?.videoSrc && !activeItem?.videoEmbed">
-                    <img :src="activeItem.imageSrc" :alt="activeItem.title + ' certificate'" class="relative z-10 w-full h-full object-contain bg-white" @error="activeItem.imageSrc = ''">
+                    <img :src="activeItem.imageSrc" :alt="activeItem.title" class="relative z-10 w-full h-full object-contain bg-white" @error="activeItem.imageSrc = ''">
                 </template>
                 <template x-if="!activeItem?.imageSrc && !activeItem?.videoSrc && !activeItem?.videoEmbed">
                     <div class="text-center text-white p-6 space-y-3 max-w-md">
@@ -548,13 +656,13 @@
                 </template>
             </div>
 
-            <div class="px-6 sm:px-9 pb-9 pt-4 space-y-6 max-h-[60vh] overflow-y-auto">
+            <div class="px-5 sm:px-6 pb-6 pt-3 space-y-5">
                 <div>
                     <div class="flex items-center gap-2 flex-wrap">
                         <span class="chip chip-accent font-semibold" x-text="activeItem?.badge"></span>
                         <span class="text-xs text-muted" x-text="activeItem?.period"></span>
                     </div>
-                    <h3 class="text-3xl font-bold tracking-tight mt-3" x-text="activeItem?.title"></h3>
+                    <h3 class="text-2xl font-bold tracking-tight mt-3" x-text="activeItem?.title"></h3>
                     <p class="text-sm font-medium accent mt-1" x-text="activeItem?.subtitle"></p>
                 </div>
 
@@ -564,13 +672,27 @@
                 </div>
 
                 <div>
-                    <h4 class="text-[11px] font-semibold uppercase tracking-wider text-muted mb-2">Key Highlights &amp; Technical Breakdown</h4>
+                    <h4 class="text-[11px] font-semibold uppercase tracking-wider text-muted mb-2" x-text="activeItem?.type === 'Activity' ? 'Activity Highlights' : 'Key Highlights & Technical Breakdown'">Key Highlights &amp; Technical Breakdown</h4>
                     <ul class="space-y-2 text-sm">
                         <template x-for="(pt, i) in (activeItem?.details || [])" :key="i">
                             <li class="flex gap-2.5"><span class="accent font-bold">•</span><span x-text="pt"></span></li>
                         </template>
                     </ul>
                 </div>
+
+                <template x-if="activityCertificates.length">
+                    <div>
+                        <h4 class="text-[11px] font-semibold uppercase tracking-wider text-muted mb-3">Certificate</h4>
+                        <template x-for="doc in activityCertificates" :key="doc.src">
+                            <figure class="glass rounded-2xl overflow-hidden mb-3">
+                                <a :href="doc.src" target="_blank" rel="noopener noreferrer" :aria-label="'Open ' + doc.caption + ' in full size'">
+                                    <img :src="doc.src" :alt="doc.alt" loading="lazy" class="w-full h-auto bg-white">
+                                </a>
+                                <figcaption class="text-xs text-muted text-center p-3" x-text="doc.caption"></figcaption>
+                            </figure>
+                        </template>
+                    </div>
+                </template>
 
                 <template x-if="activeItem?.curriculumTable">
                     <div>
@@ -598,6 +720,17 @@
                     </div>
                 </template>
 
+                <template x-if="activeItem?.demoUrl">
+                    <div class="pt-2 space-y-3">
+                        <details class="glass rounded-2xl p-4">
+                            <summary class="cursor-pointer font-semibold accent">Try It Live — Interactive Terminal</summary>
+                            <p class="text-xs text-muted my-3">A browser adaptation of my C program. Explore student records, sorting, and statistics. Your demo data stays in this browser.</p>
+                            <iframe :src="activeItem.demoUrl" title="Interactive Student Data Management terminal" class="w-full rounded-xl border-0" style="height: 540px" loading="lazy"></iframe>
+                        </details>
+                        <a :href="activeItem.sourceUrl" target="_blank" rel="noopener noreferrer" class="btn glass">View C Source</a>
+                    </div>
+                </template>
+
                 <div class="pt-2">
                     <h4 class="text-[11px] font-semibold uppercase tracking-wider text-muted mb-2">Skills Used &amp; Learned</h4>
                     <div class="flex flex-wrap gap-2">
@@ -619,6 +752,7 @@
                         </a>
                     </div>
                 </template>
+            </div>
             </div>
         </div>
     </div>
@@ -711,9 +845,10 @@
                 cvModal: false,
                 modalOpen: false,
                 activeItem: null,
+                galleryIndex: 0,
 
                 nav: [
-                    { href: '#about', label: 'About' },
+                    { href: '#activity', label: 'Activity' },
                     { href: '#skills', label: 'Skills' },
                     { href: '#projects', label: 'Projects' },
                     { href: '#college-projects', label: 'College Projects' },
@@ -727,6 +862,33 @@
                     { title: 'Database & Storage', sub: 'Relational & Cloud', icon: 'database', c1: '#30d158', c2: '#00a86b', items: ['MySQL', 'PostgreSQL', 'Firebase', 'Supabase'] },
                     { title: 'Programming Languages', sub: 'Foundational Languages', icon: 'code-2', c1: '#bf5af2', c2: '#ff375f', items: ['C++', 'C#', 'Python', 'Go'] },
                     { title: 'Quality & Collaboration', sub: 'Development Lifecycle', icon: 'users', c1: '#ff9f0a', c2: '#ff6b00', wide: true, items: ['Git / GitHub', 'Jira', 'Peer Code Reviews', 'Figma to Code', 'Query Optimization'] }
+                ],
+
+                // Add future entries to this array using the same activity and documentation fields.
+                activities: [
+                    {
+                        type: 'Activity', title: 'GDG on Campus',
+                        cardLabel: 'Telkom University Surabaya', badge: 'Core Team Member',
+                        subtitle: 'Google Developer Group on Campus Telkom University Surabaya',
+                        period: 'Aug 2023 - Jun 2024', tag: '2023 / 2024 Academic Year',
+                        short: 'As a core team member, I helped organize regular tech department workshops covering web development, machine learning, cybersecurity, and mobile app development with Flutter.',
+                        description: 'From August 2023 to June 2024, I served on the core team of Google Developer Group on Campus Telkom University Surabaya. Together with the team, I helped organize workshops that brought students together to explore technology, share knowledge, and learn beyond the classroom. During this period, the community was known as Google Developer Student Clubs (GDSC), as reflected in the documentation and certificate.',
+                        details: [
+                            'Served as a core team member throughout the 2023 / 2024 academic year.',
+                            'Helped organize recurring tech department workshops for the campus community.',
+                            'Workshop topics included web development, machine learning, cybersecurity, and mobile app development using Flutter.',
+                            'Received a GDSC Core Team Member Certificate of Completion for the 2023 / 2024 academic year.'
+                        ],
+                        cardSkills: ['Web Development', 'Machine Learning', 'Cybersecurity', 'Flutter'],
+                        skills: ['Teamwork', 'Workshop Organization', 'Community Collaboration', 'Knowledge Sharing'],
+                        c1: '#4285f4', c2: '#34a853', mediaType: 'image',
+                        thumbnailSrc: './images/gdsc/img_gdsc1.jpeg', imageSrc: './images/gdsc/img_gdsc1.jpeg',
+                        documentation: [
+                            { src: './images/gdsc/img_gdsc1.jpeg', kind: 'photo', caption: 'Campus Community', alt: 'GDSC campus community group photo in a computer lab' },
+                            { src: './images/gdsc/img_gdsc2.jpeg', kind: 'photo', caption: 'Team Memories', alt: 'GDSC team group photo on campus' },
+                            { src: './images/gdsc/cert_gdsc.jpg', kind: 'certificate', caption: 'Core Team Certificate', alt: '2023 - 2024 GDSC Core Team Member Certificate of Completion awarded to Moh. Rendy Prasetyo P.' }
+                        ]
+                    }
                 ],
 
                 projects: [
@@ -782,7 +944,8 @@
                 college: [
                     {
                         type: 'College Project', featured: true, title: 'Student Data Management System',
-                        file: 'sistem_data_mahasiswa.c',
+                        file: 'test.c',
+                        demoUrl: './sem1/demo.html', sourceUrl: './sem1/test.c',
                         badge: 'Semester 1 • Grade A (Programming Algorithms)',
                         subtitle: 'Course: Programming Algorithms (C Language) • Grade A',
                         period: 'Semester 1', link: '', linkText: '',
@@ -909,10 +1072,29 @@
                     e.currentTarget.style.setProperty('--mx', (e.clientX - r.left) + 'px');
                     e.currentTarget.style.setProperty('--my', (e.clientY - r.top) + 'px');
                 },
+                get galleryPhotos() {
+                    return (this.activeItem?.documentation || []).filter(doc => doc.kind !== 'certificate');
+                },
+                get activityCertificates() {
+                    return (this.activeItem?.documentation || []).filter(doc => doc.kind === 'certificate');
+                },
+                goToGallery(index) {
+                    const gallery = this.$refs.activityGallery;
+                    const count = this.galleryPhotos.length;
+                    if (!gallery || !count) return;
+                    this.galleryIndex = (index + count) % count;
+                    gallery.scrollTo({ left: gallery.clientWidth * this.galleryIndex,
+                        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+                },
+                moveGallery(direction) { this.goToGallery(this.galleryIndex + direction); },
                 openDetail(item) {
+                    this.galleryIndex = 0;
                     this.activeItem = JSON.parse(JSON.stringify(item));
                     this.modalOpen = true;
-                    this.$nextTick(() => this.icons());
+                    this.$nextTick(() => {
+                        if (this.$refs.detailScroll) this.$refs.detailScroll.scrollTop = 0;
+                        this.icons();
+                    });
                 },
                 closeDetail() {
                     this.modalOpen = false;
